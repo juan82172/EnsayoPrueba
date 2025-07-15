@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Ejecutar Función PHP</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 80%;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #444;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #ddd;
+    }
+  </style>
+</head>
+<body>
+  <button onclick="llamarFuncion('buscarUsuarios')">Buscar</button>
+  <button onclick="llamarFuncion('contarUsuarios')">Contar</button>
+  <table id="tabla">
+    <thead id="tabla-head">Encabezado</thead>
+    <tbody id="tabla-body">Cuerpo</tbody>
+  </table>
+
+  <script>
+    function llamarFuncion(nombreFuncion) {
+      fetch('index.php?funcion=' + nombreFuncion)
+      .then(response => response.json())
+        .then(data => {
+          const thead = document.getElementById('tabla-head');
+          const tbody = document.getElementById('tabla-body');
+          thead.innerHTML = '';
+          tbody.innerHTML = '';
+        
+
+          if (data.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="100%">No se encontraron datos</td></tr>';
+            return;
+          }
+
+          // Encabezados
+          console.log(data[0])
+          const columnas = Object.keys(data[0]);
+          let trHead = '<tr>';
+          columnas.forEach(col => {
+            trHead += `<th>${col}</th>`;
+          });
+          trHead += '</tr>';
+          thead.innerHTML = trHead;
+
+          // Filas
+          data.forEach(fila => {
+            let tr = '<tr>';
+            columnas.forEach(col => {
+              tr += `<td>${fila[col]}</td>`;
+            });
+            tr += '</tr>';
+            tbody.innerHTML += tr;
+          });
+        })
+        .catch(error => {
+          console.error('Error al cargar datos:', error);
+        });
+    }
+  </script>
+</body>
+</html>
