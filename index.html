@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <title>Ejecutar Función PHP</title>
   <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
     table {
       border-collapse: collapse;
       width: 80%;
@@ -17,15 +21,46 @@
     th {
       background-color: #ddd;
     }
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .titulo {
+      text-align: center;
+      color: #0fbbca;
+      font-weight: bold;
+      width: fit-content;
+    }
+    .botones {
+      display: flex;
+      gap: 12px;
+    }
+    .boton {
+      padding: 15px 28px;
+      background-color: aquamarine;
+      color: black;
+      border-radius: 30px;
+    }
+    .boton:hover {
+      background-color: green;
+    }
   </style>
 </head>
 <body>
-  <button onclick="llamarFuncion('buscarUsuarios')">Buscar</button>
-  <button onclick="llamarFuncion('contarUsuarios')">Contar</button>
-  <table id="tabla">
-    <thead id="tabla-head">Encabezado</thead>
-    <tbody id="tabla-body">Cuerpo</tbody>
-  </table>
+  <div class="container">
+    <h1 class="titulo">Listado personas</h1>
+    <div class="botones">
+      <button class="boton" onclick="llamarFuncion('buscarUsuarios')">Buscar</button>
+      <button class="boton" onclick="llamarFuncion('contarUsuarios')">Contar</button>
+    </div>
+    <table id="tabla">
+      <thead id="tabla-head"></thead>
+      <tbody id="tabla-body"></tbody>
+    </table>
+  </div>
 
   <script>
     function llamarFuncion(nombreFuncion) {
